@@ -16,8 +16,8 @@ export default defineComponent({
 </script>
 
 <style lang="less" scoped>
-@import '../assets/global.less';
-@import '../../node_modules/nord/src/lesscss/nord';
+@import '@/assets/global.less';
+@import 'node_modules/nord/src/lesscss/nord';
 
 ul {
   .flex-col();

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import ThemeSwitcher from './components/ThemeSwitcher.vue';
+import ThemeSwitcher from '@/components/ThemeSwitcher.vue';
 </script>
 
 <template>
@@ -17,8 +17,8 @@ import ThemeSwitcher from './components/ThemeSwitcher.vue';
 </template>
 
 <style lang="less">
-@import 'assets/global.less';
-@import '../node_modules/nord/src/lesscss/nord';
+@import '@/assets/global.less';
+@import 'node_modules/nord/src/lesscss/nord';
 
 nav {
   padding: 30px;

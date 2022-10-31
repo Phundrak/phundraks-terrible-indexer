@@ -37,7 +37,7 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue';
-import ListDocs from '../components/ListDocs.vue';
+import ListDocs from '@/components/ListDocs.vue';
 
 export default defineComponent({
   name: 'HomeView',
@@ -61,8 +61,8 @@ export default defineComponent({
 </script>
 
 <style lang="less">
-@import '../assets/global.less';
-@import '../../node_modules/nord/src/lesscss/nord';
+@import '@/assets/global.less';
+@import 'node_modules/nord/src/lesscss/nord';
 
 .query-form {
   .flex-row;
