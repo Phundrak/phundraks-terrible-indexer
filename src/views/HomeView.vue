@@ -18,6 +18,7 @@
           v-model="text"
           required
           @keyup="submitInput()"
+          autocomplete="off"
         />
         <label for="keyword" id="query-label">Keyword</label>
       </div>
