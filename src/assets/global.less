@@ -1,0 +1,47 @@
+.center {
+  margin: 0 auto;
+}
+
+.flex {
+  display: flex;
+}
+
+.flex-col {
+  .flex();
+  flex-direction: column;
+}
+
+.flex-row {
+  .flex();
+  flex-direction: row;
+}
+
+.rounded {
+  border-radius: 0.4rem;
+}
+
+.theme(@element,@light,@dark) {
+  @{element}: @dark;
+
+  [theme='light'] & {
+    @{element}: @light;
+  }
+}
+
+.default-theme {
+  .theme(color, @nord1, @nord4);
+  .theme(background-color, @nord6, @nord1);
+}
+
+.default-font {
+  font-family: Avenir, Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+a {
+  .theme(color, @nord10, @nord8);
+  &:visited {
+    color: @nord15;
+  }
+}
