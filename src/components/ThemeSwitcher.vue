@@ -24,5 +24,6 @@ button {
   font-size: 1rem;
   text-decoration: underline;
   transition: color 0.3s ease, background 0.3s ease;
+  cursor: pointer;
 }
 </style>
