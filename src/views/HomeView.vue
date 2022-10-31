@@ -51,7 +51,7 @@ export default defineComponent({
   methods: {
     submitInput() {
       console.log(this.text);
-      fetch(`http://leon:8000/keyword?keyword=${this.text}`)
+      fetch(`http://leon:8000/search?query=${this.text}`)
         .then((res) => res.json())
         .then((data) => (this.documents = data))
         .catch((err) => (this.error = err));
