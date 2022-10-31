@@ -17,7 +17,7 @@
           class="rounded"
           v-model="text"
           required
-          @enter="submitInput()"
+          @keyup="submitInput()"
         />
         <label for="keyword" id="query-label">Keyword</label>
       </div>
@@ -50,7 +50,6 @@ export default defineComponent({
   },
   methods: {
     submitInput() {
-      console.log(this.text);
       fetch(`http://leon:8000/search?query=${this.text}`)
         .then((res) => res.json())
         .then((data) => (this.documents = data))
