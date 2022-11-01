@@ -17,7 +17,7 @@
           class="rounded"
           v-model="text"
           required
-          @keyup="submitInput()"
+          @input="submitInput()"
           autocomplete="off"
         />
         <label for="keyword" id="query-label">Keyword</label>
@@ -39,6 +39,7 @@
 <script lang="ts">
 import { defineComponent } from 'vue';
 import ListDocs from '@/components/ListDocs.vue';
+import { useThrottleFn } from "@vueuse/shared";
 
 export default defineComponent({
   name: 'HomeView',
@@ -47,15 +48,17 @@ export default defineComponent({
       text: '',
       documents: [] as String[],
       error: null as any,
+      submitInput: useThrottleFn(
+        () => {
+          fetch(`http://leon:8000/search?query=${this.text}`)
+            .then((res) => res.json())
+            .then((data) => (this.documents = data))
+            .catch((err) => (this.error = err));
+        },
+        1000,
+        true
+      ),
     };
-  },
-  methods: {
-    submitInput() {
-      fetch(`http://leon:8000/search?query=${this.text}`)
-        .then((res) => res.json())
-        .then((data) => (this.documents = data))
-        .catch((err) => (this.error = err));
-    },
   },
   components: { ListDocs },
 });
