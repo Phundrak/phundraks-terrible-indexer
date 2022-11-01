@@ -29,7 +29,6 @@
         class="default-theme default-font rounded"
       />
     </form>
-    <!-- <div class="results" v-if="documents.length > "></div> -->
     <div class="results" v-if="documents.length">
       <ListDocs :documents="documents" />
     </div>
@@ -37,15 +36,15 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue';
-import ListDocs from '@/components/ListDocs.vue';
+import { defineComponent } from "vue";
+import ListDocs from "@/components/ListDocs.vue";
 import { useThrottleFn } from "@vueuse/shared";
 
 export default defineComponent({
-  name: 'HomeView',
+  name: "HomeView",
   data() {
     return {
-      text: '',
+      text: "",
       documents: [] as String[],
       error: null as any,
       submitInput: useThrottleFn(
@@ -65,8 +64,8 @@ export default defineComponent({
 </script>
 
 <style lang="less">
-@import '@/assets/global.less';
-@import 'node_modules/nord/src/lesscss/nord';
+@import "@/assets/global.less";
+@import "node_modules/nord/src/lesscss/nord";
 
 .query-form {
   .flex-row;

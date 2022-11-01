@@ -8,17 +8,17 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue';
+import { defineComponent } from "vue";
 
 export default defineComponent({
-  name: 'ListDocs',
-  props: ['documents'],
+  name: "ListDocs",
+  props: ["documents"],
 });
 </script>
 
 <style lang="less" scoped>
-@import '@/assets/global.less';
-@import 'node_modules/nord/src/lesscss/nord';
+@import "@/assets/global.less";
+@import "node_modules/nord/src/lesscss/nord";
 
 ul {
   .flex-col();
