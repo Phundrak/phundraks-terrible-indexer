@@ -1,7 +1,8 @@
 <template>
   <ul class="docs">
     <li v-for="doc in documents" :key="doc" class="rounded">
-      <a :href="doc" class="">{{ doc.doc }}</a> ({{ doc.hits }} hits)
+      <a :href="doc.doc" target="_blank">{{ doc.title }}</a> ({{ doc.hits }}
+      hits)
     </li>
   </ul>
 </template>
