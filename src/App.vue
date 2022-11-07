@@ -7,6 +7,7 @@ import ThemeSwitcher from "@/components/ThemeSwitcher.vue";
   <header>
     <nav>
       <router-link to="/">Home</router-link> |
+      <router-link to="/newdoc">New Document</router-link> |
       <router-link to="/about">About</router-link> |
       <ThemeSwitcher />
     </nav>
