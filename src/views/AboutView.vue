@@ -1,6 +1,6 @@
 <template>
   <div class="about">
-    <h1>PTI – About page</h1>
+    <h2>About</h2>
     <p>
       This website is a front-end for my custom document indexer. It runs with
       <a href="https://vuejs.org/">Vue.js</a> with

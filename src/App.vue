@@ -12,6 +12,7 @@ import ThemeSwitcher from "@/components/ThemeSwitcher.vue";
     </nav>
   </header>
 
+  <h1>PTI – Phundrak’s Terrible Indexer</h1>
   <router-view v-slot="{ Component }">
     <transition name="fade-page">
       <component :is="Component" />

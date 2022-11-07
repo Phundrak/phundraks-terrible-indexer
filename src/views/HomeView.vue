@@ -1,7 +1,6 @@
 <template>
   <div class="home">
-    <h1>PTI</h1>
-    <h2>Phundrak’s Terrible Indexer</h2>
+    <h2>Search</h2>
     <form
       method="get"
       class="query-form center"
