@@ -1,61 +1,55 @@
 <template>
   <div class="add-page">
     <h2>Add New Page</h2>
-    <form
+    <Form
       method="post"
-      class="query-form center"
-      accept="utf-8"
-      @submit.prevent="addDocument"
-    >
-      <div class="query-input center flex">
-        <input
-          class="rounded center"
-          name="documentPath"
-          type="url"
-          id="query"
-          placeholder="Document URL"
-          v-model="url"
-          required
-          autocomplete="off"
-        />
-        <label for="documentPath" id="query-label">Document URL</label>
-      </div>
-      <input
-        type="submit"
-        value="Add Document"
-        id="submit"
-        class="default-theme default-font rounded"
-      />
-    </form>
+      btnText="Add Document"
+      loadingText="Adding document to database..."
+      lblText="Document URL"
+      queryType="url"
+      @execute="addDocument"
+    />
   </div>
 </template>
 
 <script lang="ts">
 import { defineComponent } from "vue";
+import Form from "../components/Form.vue";
+
+const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms));
+
 export default defineComponent({
   name: "AddPageView",
   data() {
     return {
       url: "",
+      loading: false,
+      ok: false,
+      done: false,
     };
   },
+  components: { Form },
   methods: {
-    addDocument() {
+    addDocument(query: string) {
       const options = {
         method: "POST",
       };
-      console.log(`Submitting URL ${this.url}`);
-      fetch(`http://leon:8000/doc?url=${this.url}`, options)
+      console.log(`Submitting URL ${query}`);
+      this.loading = true;
+      fetch(`http://leon:8000/doc?url=${query}`, options)
         .then((res) => {
           console.log("Got response!");
-          return res;
+          return res.status;
         })
-        .then((res) => console.log(`${this.url} done!`, res));
+        .then((res) => {
+          this.loading = false;
+          if (res == 200) {
+            this.done = true;
+            sleep(5000).then(() => "");
+            this.done = false;
+          }
+        });
     },
   },
 });
 </script>
-
-<style lang="less">
-@import "@/assets/form.less";
-</style>
