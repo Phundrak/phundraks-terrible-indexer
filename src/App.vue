@@ -12,11 +12,16 @@ import ThemeSwitcher from "@/components/ThemeSwitcher.vue";
     </nav>
   </header>
 
-  <Transition name="fade">
+  <router-view v-slot="{ Component }">
+    <transition name="fade-page">
+      <component :is="Component" />
+    </transition>
+  </router-view>
+  <!-- <Transition name="fade">
     <div id="main" tabindex="-1">
       <RouterView />
     </div>
-  </Transition>
+  </Transition> -->
 </template>
 
 <style lang="less">

@@ -1,4 +1,4 @@
-@import 'node_modules/nord/src/lesscss/nord';
+@import "node_modules/nord/src/lesscss/nord";
 
 .center {
   margin: 0 auto;
@@ -25,7 +25,7 @@
 .theme(@element,@light,@dark) {
   @{element}: @dark;
 
-  [theme='light'] & {
+  [theme="light"] & {
     @{element}: @light;
   }
 }
@@ -48,9 +48,27 @@ a {
   }
 }
 
+@transition-fast: 0.1s;
+@transition-medium: 0.3s;
+@transition-slow: 0.5s;
+
+.fade-page-enter-active,
+.fade-page-leave-active {
+  transition: opacity @transition-fast ease;
+}
+
+.fade-page-enter-from,
+.fade-page-leave-to {
+  opacity: 0;
+}
+
+.fade-page-enter-active {
+  transition: opacity @transition-fast ease @transition-fast;
+}
+
 .fade-enter-active,
 .fade-leave-active {
-  transition: opacity 0.5s ease;
+  transition: opacity @transition-fast ease;
 }
 
 .fade-enter-from,
@@ -60,7 +78,7 @@ a {
 
 body {
   .theme(background-color, @nord6, @nord1);
-  transition: background-color 0.3s ease;
+  transition: background-color @transition-medium ease;
   padding-left: 1rem;
   padding-right: 1rem;
 }
@@ -69,5 +87,5 @@ body {
   text-align: center;
   .theme(color, @nord2, @nord6);
   .default-font;
-  transition: color 0.3s ease;
+  transition: color @transition-medium ease;
 }
