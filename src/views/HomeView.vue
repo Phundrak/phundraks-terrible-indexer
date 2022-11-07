@@ -48,10 +48,12 @@ export default defineComponent({
       error: null as any,
       submitInput: useThrottleFn(
         () => {
-          fetch(`http://leon:8000/search?query=${this.text}`)
-            .then((res) => res.json())
-            .then((data) => (this.documents = data))
-            .catch((err) => (this.error = err));
+          if (this.text) {
+            fetch(`http://leon:8000/search?query=${this.text}`)
+              .then((res) => res.json())
+              .then((data) => (this.documents = data))
+              .catch((err) => (this.error = err));
+          }
         },
         1000,
         true
