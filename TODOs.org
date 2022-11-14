@@ -1,0 +1,11 @@
+#+startup: content
+
+* TODO Make an admin-only area [0/4]
+** TODO Web page indexer
+** TODO Local file indexer
+*** TODO Display progress when multiple files get indexed
+** TODO Display list of indexed documents
+** TODO Enable admin to delete document
+* TODO Change “hits” by “score”
+* TODO Display description of document
+* TODO Display word cloud for a document
