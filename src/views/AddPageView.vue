@@ -7,7 +7,7 @@
       loadingText="Adding document to database..."
       lblText="Document URL"
       queryType="url"
-      @execute="addDocument"
+      @submit="addDocument"
     />
   </div>
 </template>

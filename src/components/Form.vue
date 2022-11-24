@@ -56,10 +56,10 @@ export default defineComponent({
       done: false,
     };
   },
-  emits: ["execute"],
+  emits: ["submit"],
   methods: {
     submit() {
-      this.$emit("execute", this.query);
+      this.$emit("submit", this.query);
     },
   },
   components: { LoaderVue },

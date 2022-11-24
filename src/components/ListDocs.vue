@@ -1,19 +1,30 @@
 <template>
+  <div v-if="spelling_suggestion && using_suggestion">
+    Using search request <strong>{{ spelling_suggestion }}</strong>
+  </div>
+  <div v-else-if="spelling_suggestion">
+    Suggested search: <strong>{{ spelling_suggestion }}</strong>
+  </div>
   <ul class="docs">
-    <li v-for="doc in documents" :key="doc" class="rounded">
-      <a :href="doc.doc" target="_blank">{{ doc.title }}</a> ({{ doc.hits }}
-      hits)
+    <li v-for="doc in documents" :key="doc.doc" class="rounded">
+      <Doc :document="doc" />
     </li>
   </ul>
 </template>
 
-<script lang="ts">
-import { defineComponent } from "vue";
+<script setup lang="ts">
+import type { QueryResult } from "@/composables/document";
+import { computed } from "vue";
+import Doc from "@/components/Doc.vue";
+const props = defineProps<{
+  queryResult: QueryResult;
+}>();
 
-export default defineComponent({
-  name: "ListDocs",
-  props: ["documents"],
-});
+const spelling_suggestion = computed(
+  () => props.queryResult.spelling_suggestion
+);
+const using_suggestion = computed(() => props.queryResult.using_suggestion);
+const documents = computed(() => props.queryResult.results);
 </script>
 
 <style lang="less" scoped>
