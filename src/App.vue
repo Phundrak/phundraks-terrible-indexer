@@ -1,25 +1,19 @@
-<script setup lang="ts">
-import ThemeSwitcher from "@/components/ThemeSwitcher.vue";
-</script>
-
 <template>
   <a class="skip-main rounded" href="#main">Skip to main content</a>
-  <header>
-    <nav>
-      <router-link to="/">Home</router-link> |
-      <router-link to="/newdoc">New Document</router-link> |
-      <router-link to="/about">About</router-link> |
-      <ThemeSwitcher />
-    </nav>
-  </header>
+  <Header />
 
   <h1>PTI – Phundrak’s Terrible Indexer</h1>
+
   <router-view v-slot="{ Component }">
     <transition name="fade-page">
       <component :is="Component" />
     </transition>
   </router-view>
 </template>
+
+<script setup lang="ts">
+import Header from "./components/Header.vue";
+</script>
 
 <style lang="less">
 @import "@/assets/global.less";
