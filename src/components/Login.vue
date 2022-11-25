@@ -13,7 +13,7 @@
             <input
               name="uname"
               type="email"
-              v-model="username"
+              v-model="email"
               placeholder="Email"
               required
             />
@@ -47,26 +47,28 @@
   </transition>
 </template>
 
-<script lang="ts">
-export default {
-  data() {
-    return {
-      username: null,
-      password: null,
-    };
-  },
-  props: {
-    showModal: Boolean,
-  },
-  methods: {
-    closeModal() {
-      this.$emit('closeModal');
-    },
-    login() {
-      console.log(`Logging with ${this.username} and ${this.password}`);
-    },
-  },
-};
+<script setup lang="ts">
+import { ref } from 'vue';
+import { useAppwriteStore } from '@/stores/appwrite';
+const store = useAppwriteStore();
+
+const email = ref('');
+const password = ref('');
+
+defineProps<{
+  showModal: boolean;
+}>();
+
+const emit = defineEmits(['closeModal']);
+
+function closeModal() {
+  emit('closeModal');
+}
+
+function login() {
+  console.log(`Logging in with ${email.value} and ${password.value}`);
+  store.authentificate(email.value, password.value);
+}
 </script>
 
 <style lang="less" scoped>
