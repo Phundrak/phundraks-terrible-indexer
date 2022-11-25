@@ -7,6 +7,7 @@
         @submit.prevent="login"
         class="rounded flex-col"
       >
+        <h2>User Authentification</h2>
         <div class="container flex-col">
           <div class="flex-col-reversed top-margin box-sizizg-border">
             <input
@@ -87,10 +88,16 @@ export default {
   padding: 1rem 1.3rem;
 }
 
-label {
+label,
+h2 {
   .side-margin();
   .default-font();
   .theme(color, @nord3, @nord5);
+}
+
+h2 {
+  text-align: center;
+  font-size: 2em;
 }
 
 input[type='email'],
@@ -130,7 +137,7 @@ button {
 }
 
 form {
-  .theme(background-color, fade(@nord4, 60), fade(@nord2, 60));
+  .theme(background-color, @nord4, @nord2);
   .blur-background();
   padding: 2rem;
   margin: 4rem auto;
