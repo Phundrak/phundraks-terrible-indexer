@@ -16,9 +16,17 @@
       powered by <a href="https://diesel.rs/" target="_blank">Diesel</a>.
     </p>
     <p>
-      The source code is unavailable for now, but it will be free to access
-      hopefully somewhat soon.
+      The source code for the frontend is available right now on
+      <a
+        href="https://github.com/Phundrak/phundraks-terrible-indexer"
+        target="_blank"
+        >Github</a
+      >.
     </p>
-    <p>This page was last updated on October 31st, 2022.</p>
+    <p>
+      The source code for the backend is unfortunately unavailable for now, but
+      it will be free to access hopefully somewhat soon.
+    </p>
+    <p>This page was last updated on November 25th, 2022.</p>
   </div>
 </template>
