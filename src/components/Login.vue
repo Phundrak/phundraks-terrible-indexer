@@ -35,7 +35,11 @@
           </label>
         </div>
         <div class="container flex-row flex-stretch top-margin gap-1rem">
-          <button class="cancelbtn flex-v-centered" type="button">
+          <button
+            class="cancelbtn flex-v-centered"
+            type="button"
+            @click="closeModal"
+          >
             Cancel
           </button>
           <button class="flex-v-centered" type="button">
