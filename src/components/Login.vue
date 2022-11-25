@@ -132,11 +132,11 @@ form {
     input[name="@{value}"] {
       & + label[for="@{value}"] {
         opacity: 0;
-        transition: opacity 0.3s ease;
+        transition: opacity @transition-medium ease;
       }
       &:not(:placeholder-shown) + label[for="@{value}"] {
         opacity: 1;
-        transition: opacity 0.3s ease;
+        transition: opacity @transition-medium ease;
       }
     }
   });

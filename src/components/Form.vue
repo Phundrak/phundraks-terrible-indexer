@@ -110,20 +110,19 @@ export default defineComponent({
 
     & + #query-label {
       opacity: 0;
-      transition: opacity 0.3s ease;
+      transition: opacity @transition-medium ease;
     }
-
     &:not(:placeholder-shown) + #query-label {
       opacity: 1;
-      transition: opacity 0.3s ease;
+      transition: opacity @transition-medium ease;
     }
   }
-
   #submit {
     border: none;
     padding: 1rem;
     .theme(background-color, @nord4, @nord3);
-    transition: background-color 0.3s ease, color 0.3s ease;
+    transition: background-color @transition-medium ease,
+      color @transition-medium ease;
   }
 }
 </style>

@@ -18,12 +18,13 @@ const toggleDark = useToggle(isDark);
 </script>
 
 <style lang="less" scoped>
+@import '@/assets/global.less';
 button {
   border: none;
   font-weight: bold;
   font-size: 1rem;
   text-decoration: underline;
-  transition: color 0.3s ease, background 0.3s ease;
+  transition: color @transition-medium ease, background @transition-medium ease;
   cursor: pointer;
 }
 </style>
