@@ -4,8 +4,8 @@
 
   <h1>PTI – Phundrak’s Terrible Indexer</h1>
 
-  <teleport to="#modals" v-if="showModal">
-    <Login @closeModal="toggleModal" />
+  <teleport to="#modals">
+    <Login :showModal="showModal" @closeModal="toggleModal" />
   </teleport>
 
   <router-view v-slot="{ Component }">

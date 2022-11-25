@@ -1,43 +1,49 @@
 <template>
-  <div class="backdrop" @click.self="closeModal">
-    <form
-      method="post"
-      accept="utf-8"
-      @submit.prevent="login"
-      class="rounded flex-col"
-    >
-      <div class="container flex-col">
-        <div class="flex-col-reversed top-margin box-sizizg-border">
-          <input
-            name="uname"
-            type="email"
-            v-model="username"
-            placeholder="Email"
-            required
-          />
-          <label for="uname">Email</label>
+  <transition name="fade">
+    <div class="backdrop" @click.self="closeModal" v-if="showModal">
+      <form
+        method="post"
+        accept="utf-8"
+        @submit.prevent="login"
+        class="rounded flex-col"
+      >
+        <div class="container flex-col">
+          <div class="flex-col-reversed top-margin box-sizizg-border">
+            <input
+              name="uname"
+              type="email"
+              v-model="username"
+              placeholder="Email"
+              required
+            />
+            <label for="uname">Email</label>
+          </div>
+          <div class="flex-col-reversed top-margin box-sizizg-border">
+            <input
+              name="psw"
+              type="password"
+              placeholder="Password"
+              v-model="password"
+              required
+            />
+            <label for="psw">Password</label>
+          </div>
+          <button type="submit" class="top-margin">Login</button>
+          <label>
+            <input name="remember" type="checkbox" checked="true" /> Remember me
+          </label>
         </div>
-        <div class="flex-col-reversed top-margin box-sizizg-border">
-          <input
-            name="psw"
-            type="password"
-            placeholder="Password"
-            v-model="password"
-            required
-          />
-          <label for="psw">Password</label>
+        <div class="container flex-row flex-stretch top-margin gap-1rem">
+          <button class="cancelbtn flex-v-centered" type="button">
+            Cancel
+          </button>
+          <button class="flex-v-centered" type="button">
+            Forgot password?
+          </button>
         </div>
-        <button type="submit" class="top-margin">Login</button>
-        <label>
-          <input name="remember" type="checkbox" checked="true" /> Remember me
-        </label>
-      </div>
-      <div class="container flex-row flex-stretch top-margin gap-1rem">
-        <button class="cancelbtn flex-v-centered" type="button">Cancel</button>
-        <button class="flex-v-centered" type="button">Forgot password?</button>
-      </div>
-    </form>
-  </div>
+      </form>
+    </div>
+  </transition>
 </template>
 
 <script lang="ts">
@@ -47,6 +53,9 @@ export default {
       username: null,
       password: null,
     };
+  },
+  props: {
+    showModal: Boolean,
   },
   methods: {
     closeModal() {
@@ -121,25 +130,27 @@ button {
 }
 
 form {
-  .theme(background-color, @nord5, @nord2);
+  .theme(background-color, fade(@nord4, 60), fade(@nord2, 60));
+  .blur-background();
   padding: 2rem;
-  margin: 3rem auto;
+  margin: 4rem auto;
   max-width: 600px;
 }
 
 .hide-label-no-placeholder(@name) {
   each(@name, {
-    input[name="@{value}"] {
-      & + label[for="@{value}"] {
-        opacity: 0;
-        transition: opacity @transition-medium ease;
-      }
-      &:not(:placeholder-shown) + label[for="@{value}"] {
-        opacity: 1;
-        transition: opacity @transition-medium ease;
-      }
-    }
-  });
+        input[name="@{value}"] {
+            & + label[for="@{value}"] {
+                opacity: 0;
+                transition: opacity @transition-medium ease;
+            }
+
+            &:not(:placeholder-shown) + label[for="@{value}"] {
+                opacity: 1;
+                transition: opacity @transition-medium ease;
+            }
+        }
+    });
 }
 
 @hide-label-names: 'uname', 'psw';

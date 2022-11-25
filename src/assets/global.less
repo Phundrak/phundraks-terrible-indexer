@@ -85,7 +85,7 @@ a {
 
 .fade-enter-active,
 .fade-leave-active {
-  transition: opacity @transition-fast ease;
+  transition: opacity @transition-medium ease;
 }
 
 .fade-enter-from,
@@ -113,10 +113,15 @@ body {
   transition: color @transition-medium ease;
 }
 
+.blur-background {
+  backdrop-filter: blur(0.4rem);
+}
+
 .backdrop {
+  .blur-background();
   top: 0;
   position: fixed;
-  .theme(background-color, fade(@nord4, 90), fade(@nord0, 90));
+  .theme(background-color, fade(@nord6, 60), fade(@nord0, 60));
   width: 100%;
   height: 100%;
 }
