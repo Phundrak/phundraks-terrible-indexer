@@ -6,16 +6,25 @@
       </div>
       <div v-else>
         <div class="flex-col container" :key="document.doc">
-          <h2>
+          <h2 class="title">
             <a :href="document.doc">{{ document.title }}</a>
           </h2>
-          <div>
+          <div class="description">
             <p>{{ document.description }}</p>
           </div>
-          <div class="wordcloud">
-            <svg v-if="keywords"></svg>
-            <Loader v-else />
-          </div>
+          <ul class="keywords flex-col" v-if="keywords">
+            <li
+              v-for="keyword in keywords"
+              :key="keyword.keyword"
+              class="flex-row"
+            >
+              <!-- {{ keyword.keyword }}: {{ keyword.rank }} hits -->
+              <div>
+                {{ keyword.keyword }}
+              </div>
+              <div>{{ keyword.rank }} hits</div>
+            </li>
+          </ul>
         </div>
       </div>
     </div>
@@ -53,8 +62,8 @@ export default defineComponent({
       console.log(data);
       this.loading = false;
       this.keywords = data
-        .sort((a: RankedKeyword, b: RankedKeyword) => a.hits < b.hits)
-        .slice(0, 25);
+        .sort((a: RankedKeyword, b: RankedKeyword) => a.rank < b.rank)
+        .slice(0, 15);
     } catch (error) {
       console.log(`Error fetching keywords for ${this.document.doc}: ${error}`);
     }
@@ -64,6 +73,10 @@ export default defineComponent({
     closeModal() {
       this.$emit("closeModal");
     },
+    fontSize(base: number) {
+      const size = Math.log2() * 2 * number;
+      return `font-size: ${size}px`;
+    },
   },
 });
 </script>
@@ -71,4 +84,25 @@ export default defineComponent({
 <style lang="less" scoped>
 @import "@/assets/global.less";
 @import "node_modules/nord/src/lesscss/nord";
+
+ul {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+  gap: 1rem;
+}
+
+li {
+  .theme(color, fade(@nord3, 80%), fade(@nord4, 80%));
+  gap: 4rem;
+  justify-content: space-between;
+  padding: 0;
+  margin: 0;
+  text-decoration: none;
+  width: 100%;
+}
+
+.keywords {
+  margin: 2rem auto;
+}
 </style>
