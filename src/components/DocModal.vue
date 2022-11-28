@@ -12,19 +12,15 @@
           <div class="description">
             <p>{{ document.description }}</p>
           </div>
-          <ul class="keywords flex-col" v-if="keywords">
-            <li
+          <div class="keywords">
+            <p
               v-for="keyword in keywords"
               :key="keyword.keyword"
-              class="flex-row"
+              :style="fontSize(keyword.rank)"
             >
-              <!-- {{ keyword.keyword }}: {{ keyword.rank }} hits -->
-              <div>
-                {{ keyword.keyword }}
-              </div>
-              <div>{{ keyword.rank }} hits</div>
-            </li>
-          </ul>
+              {{ keyword.keyword }}
+            </p>
+          </div>
         </div>
       </div>
     </div>
@@ -63,7 +59,7 @@ export default defineComponent({
       this.loading = false;
       this.keywords = data
         .sort((a: RankedKeyword, b: RankedKeyword) => a.rank < b.rank)
-        .slice(0, 15);
+        .slice(0, 25);
     } catch (error) {
       console.log(`Error fetching keywords for ${this.document.doc}: ${error}`);
     }
@@ -74,8 +70,8 @@ export default defineComponent({
       this.$emit("closeModal");
     },
     fontSize(base: number) {
-      const size = Math.log2() * 2 * number;
-      return `font-size: ${size}px`;
+      const size = Math.log2(base / 5) * 10;
+      return `font-size: max(${size}px, 1rem)`;
     },
   },
 });
@@ -101,8 +97,19 @@ li {
   text-decoration: none;
   width: 100%;
 }
-
 .keywords {
   margin: 2rem auto;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+  align-items: center;
+  gap: 1rem;
+
+  p {
+    padding: 0;
+    margin: 0;
+    display: inline-block;
+    gap: 1rem;
+  }
 }
 </style>
