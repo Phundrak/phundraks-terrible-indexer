@@ -1,83 +1,82 @@
 <template>
-  <transition name="fade">
-    <div class="backdrop" @click.self="closeModal" v-if="showModal">
-      <form
-        method="post"
-        accept="utf-8"
-        @submit.prevent="login"
-        class="rounded flex-col"
-      >
-        <h2>User Authentification</h2>
-        <div class="container flex-col">
-          <div class="flex-col-reversed top-margin box-sizizg-border">
-            <input
-              name="uname"
-              type="email"
-              v-model="email"
-              placeholder="Email"
-              required
-            />
-            <label for="uname">Email</label>
-          </div>
-          <div class="flex-col-reversed top-margin box-sizizg-border">
-            <input
-              name="psw"
-              type="password"
-              placeholder="Password"
-              v-model="password"
-              required
-            />
-            <label for="psw">Password</label>
-          </div>
-          <button type="submit" class="top-margin">Login</button>
-          <label>
-            <input name="remember" type="checkbox" checked="true" /> Remember me
-          </label>
+  <Modal @close-modal="closeModal">
+    <form
+      method="post"
+      accept="utf-8"
+      @submit.prevent="login"
+      class="rounded flex-col"
+    >
+      <h2>User Authentification</h2>
+      <div class="container flex-col">
+        <div class="flex-col-reversed top-margin box-sizizg-border">
+          <input
+            name="uname"
+            type="email"
+            v-model="email"
+            placeholder="Email"
+            required
+          />
+          <label for="uname">Email</label>
         </div>
-        <div class="container flex-row flex-stretch top-margin gap-1rem">
-          <button
-            class="cancelbtn flex-v-centered"
-            type="button"
-            @click="closeModal"
-          >
-            Cancel
-          </button>
-          <button class="flex-v-centered" type="button">
-            Forgot password?
-          </button>
+        <div class="flex-col-reversed top-margin box-sizizg-border">
+          <input
+            name="psw"
+            type="password"
+            placeholder="Password"
+            v-model="password"
+            required
+          />
+          <label for="psw">Password</label>
         </div>
-      </form>
-    </div>
-  </transition>
+        <button type="submit" class="top-margin">Login</button>
+        <label>
+          <input name="remember" type="checkbox" checked="true" /> Remember me
+        </label>
+      </div>
+      <div class="container flex-row flex-stretch top-margin gap-1rem">
+        <button
+          class="cancelbtn flex-v-centered"
+          type="button"
+          @click="closeModal"
+        >
+          Cancel
+        </button>
+        <button class="flex-v-centered" type="button">Forgot password?</button>
+      </div>
+    </form>
+  </Modal>
 </template>
 
-<script setup lang="ts">
-import { ref } from 'vue';
-import { useAppwriteStore } from '@/stores/appwrite';
-const store = useAppwriteStore();
+<script lang="ts">
+import { defineComponent } from "vue";
+import { useAppwriteStore } from "@/stores/appwrite";
+import Modal from "./Modal.vue";
 
-const email = ref('');
-const password = ref('');
-
-defineProps<{
-  showModal: boolean;
-}>();
-
-const emit = defineEmits(['closeModal']);
-
-function closeModal() {
-  emit('closeModal');
-}
-
-function login() {
-  console.log(`Logging in with ${email.value} and ${password.value}`);
-  store.authentificate(email.value, password.value);
-}
+export default defineComponent({
+  components: { Modal },
+  data() {
+    return {
+      email: "",
+      password: "",
+      store: useAppwriteStore(),
+    };
+  },
+  emits: ["closeModal"],
+  methods: {
+    login() {
+      console.log(`Logging in with ${this.email} and ${this.password}`);
+      this.store.authentificate(this.email, this.password);
+    },
+    closeModal() {
+      this.$emit("closeModal");
+    },
+  },
+});
 </script>
 
 <style lang="less" scoped>
-@import '@/assets/global.less';
-@import 'node_modules/nord/src/lesscss/nord';
+@import "@/assets/global.less";
+@import "node_modules/nord/src/lesscss/nord";
 
 .side-margin {
   /* margin: 0 1rem; */
@@ -106,8 +105,8 @@ h2 {
   font-size: 2em;
 }
 
-input[type='email'],
-input[type='password'] {
+input[type="email"],
+input[type="password"] {
   .rounded();
   .breathe();
   width: 100%;
@@ -166,6 +165,6 @@ form {
     });
 }
 
-@hide-label-names: 'uname', 'psw';
+@hide-label-names: "uname", "psw";
 .hide-label-no-placeholder(@hide-label-names);
 </style>

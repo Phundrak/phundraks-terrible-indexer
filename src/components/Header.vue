@@ -10,16 +10,15 @@
 </template>
 
 <script lang="ts">
-import ThemeSwitcher from '@/components/ThemeSwitcher.vue';
-import { defineComponent } from 'vue';
+import ThemeSwitcher from "@/components/ThemeSwitcher.vue";
+import { defineComponent } from "vue";
 
 export default defineComponent({
-  name: 'Header',
-  emits: ['toggleLogin'],
+  name: "Header",
+  emits: ["toggleLogin"],
   methods: {
     toggleLogin() {
-      console.log('Emitting login');
-      this.$emit('toggleLogin');
+      this.$emit("toggleLogin");
     },
   },
   components: { ThemeSwitcher },

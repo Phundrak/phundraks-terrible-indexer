@@ -1,11 +1,15 @@
 <template>
   <a class="skip-main rounded" href="#main">Skip to main content</a>
-  <Header @toggleLogin="toggleModal" />
+  <Header @toggleLogin="toggleLogin" />
 
   <h1>PTI – Phundrak’s Terrible Indexer</h1>
 
   <teleport to="#modals">
-    <Login :showModal="showModal" @closeModal="toggleModal" />
+    <transition name="fade">
+      <div v-if="showLogin">
+        <Login @close-modal="toggleLogin" />
+      </div>
+    </transition>
   </teleport>
 
   <router-view v-slot="{ Component }">
@@ -16,20 +20,21 @@
 </template>
 
 <script setup lang="ts">
-import Header from './components/Header.vue';
-import Login from './components/Login.vue';
-import { ref } from 'vue';
-const showModal = ref(false);
+import { ref } from "vue";
+import Header from "./components/Header.vue";
+import Login from "./components/Login.vue";
 
-const toggleModal = () => {
-  console.log('Toggle modal');
-  showModal.value = !showModal.value;
-};
+const showLogin = ref(false);
+
+function toggleLogin() {
+  console.log(showLogin);
+  showLogin.value = !showLogin.value;
+}
 </script>
 
 <style lang="less">
-@import '@/assets/global.less';
-@import 'node_modules/nord/src/lesscss/nord';
+@import "@/assets/global.less";
+@import "node_modules/nord/src/lesscss/nord";
 
 #main {
   outline: none;
