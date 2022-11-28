@@ -1,4 +1,4 @@
-@import 'node_modules/nord/src/lesscss/nord';
+@import "node_modules/nord/src/lesscss/nord";
 
 .center {
   margin: 0 auto;
@@ -42,7 +42,7 @@
 .theme(@element,@light,@dark) {
   @{element}: @dark;
 
-  [theme='light'] & {
+  [theme="light"] & {
     @{element}: @light;
   }
 }
@@ -132,4 +132,13 @@ body {
 
 .gap-1rem {
   gap: 1rem;
+}
+
+.card {
+  .rounded();
+  .theme(background-color, @nord4, @nord2);
+  .theme(color, @nord3, @nord5);
+  padding: 2rem;
+  margin: 4rem auto;
+  max-width: 600px;
 }

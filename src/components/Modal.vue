@@ -11,8 +11,3 @@ function closeModal() {
   emit("closeModal");
 }
 </script>
-
-<style lang="less" scoped>
-@import "@/assets/global.less";
-@import "node_modules/nord/src/lesscss/nord";
-</style>

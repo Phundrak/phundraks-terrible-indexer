@@ -1,17 +1,22 @@
 <template>
   <Modal @close-modal="closeModal">
-    <div v-if="loading">
-      <Loader />
-    </div>
-    <div v-else>
-      <div class="flex-row" :key="document.doc">
-        <h2>
-          <a :href="document.doc">{{ document.title }}</a>
-        </h2>
-        <div>
-          <p>{{ document.description }}</p>
+    <div class="card container">
+      <div v-if="loading">
+        <Loader />
+      </div>
+      <div v-else>
+        <div class="flex-col container" :key="document.doc">
+          <h2>
+            <a :href="document.doc">{{ document.title }}</a>
+          </h2>
+          <div>
+            <p>{{ document.description }}</p>
+          </div>
+          <div class="wordcloud">
+            <svg v-if="keywords"></svg>
+            <Loader v-else />
+          </div>
         </div>
-        <svg></svg>
       </div>
     </div>
   </Modal>
@@ -31,6 +36,7 @@ export default defineComponent({
     return {
       loading: true,
       keywords: [{}] as [RankedKeyword],
+      layout: {} as any,
     };
   },
   props: {
@@ -46,7 +52,9 @@ export default defineComponent({
       const { data } = await axios.get(fetchUrl);
       console.log(data);
       this.loading = false;
-      return data;
+      this.keywords = data
+        .sort((a: RankedKeyword, b: RankedKeyword) => a.hits < b.hits)
+        .slice(0, 25);
     } catch (error) {
       console.log(`Error fetching keywords for ${this.document.doc}: ${error}`);
     }
@@ -59,3 +67,8 @@ export default defineComponent({
   },
 });
 </script>
+
+<style lang="less" scoped>
+@import "@/assets/global.less";
+@import "node_modules/nord/src/lesscss/nord";
+</style>

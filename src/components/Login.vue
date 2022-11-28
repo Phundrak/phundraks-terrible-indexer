@@ -4,7 +4,7 @@
       method="post"
       accept="utf-8"
       @submit.prevent="login"
-      class="rounded flex-col"
+      class="card flex-col"
     >
       <h2>User Authentification</h2>
       <div class="container flex-col">
@@ -97,7 +97,6 @@ label,
 h2 {
   .side-margin();
   .default-font();
-  .theme(color, @nord3, @nord5);
 }
 
 h2 {
@@ -139,14 +138,6 @@ button {
 .container {
   padding: 1.3rem;
   .rounded();
-}
-
-form {
-  .theme(background-color, @nord4, @nord2);
-  .blur-background();
-  padding: 2rem;
-  margin: 4rem auto;
-  max-width: 600px;
 }
 
 .hide-label-no-placeholder(@name) {
