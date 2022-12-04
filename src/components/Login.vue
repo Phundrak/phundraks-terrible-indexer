@@ -7,6 +7,11 @@
       class="card flex-col"
     >
       <h2>User Authentification</h2>
+      <Transition name="fade-grow">
+        <p class="error rounded" v-if="error">
+          {{ error }}
+        </p>
+      </Transition>
       <div class="container flex-col">
         <div class="flex-col-reversed top-margin box-sizizg-border">
           <input
@@ -28,10 +33,10 @@
           />
           <label for="psw">Password</label>
         </div>
-        <button type="submit" class="top-margin">Login</button>
-        <label>
-          <input name="remember" type="checkbox" checked="true" /> Remember me
-        </label>
+        <button type="submit" class="top-margin">
+          <Loader v-if="loading" />
+          <p v-else>Login</p>
+        </button>
       </div>
       <div class="container flex-row flex-stretch top-margin gap-1rem">
         <button
@@ -47,31 +52,42 @@
   </Modal>
 </template>
 
-<script lang="ts">
-import { defineComponent } from "vue";
-import { useAppwriteStore } from "@/stores/appwrite";
+<script setup lang="ts">
+import { useStorage } from "@vueuse/core";
+import type { Models } from "appwrite";
+import { ref } from "vue";
 import Modal from "./Modal.vue";
+import Loader from "./Loader.vue";
+import { account } from "@/composables/appwrite";
 
-export default defineComponent({
-  components: { Modal },
-  data() {
-    return {
-      email: "",
-      password: "",
-      store: useAppwriteStore(),
-    };
-  },
-  emits: ["closeModal"],
-  methods: {
-    login() {
-      console.log(`Logging in with ${this.email} and ${this.password}`);
-      this.store.authentificate(this.email, this.password);
+const email = ref("");
+const password = ref("");
+const loading = ref(false);
+const session = useStorage("user-session", {} as Models.Session);
+const error = ref("");
+
+const emit = defineEmits(["closeModal"]);
+
+const closeModal = () => emit("closeModal");
+
+const login = () => {
+  error.value = "";
+  loading.value = true;
+  const promise = account.createEmailSession(email.value, password.value);
+  promise.then(
+    (response) => {
+      loading.value = false;
+      session.value = response;
+      emit("closeModal");
     },
-    closeModal() {
-      this.$emit("closeModal");
-    },
-  },
-});
+    (e) => {
+      loading.value = false;
+      console.info("lel");
+      error.value = e;
+      console.log(e);
+    }
+  );
+};
 </script>
 
 <style lang="less" scoped>
@@ -94,7 +110,8 @@ export default defineComponent({
 }
 
 label,
-h2 {
+h2,
+.error {
   .side-margin();
   .default-font();
 }
@@ -127,6 +144,11 @@ button {
   &:hover {
     opacity: 0.8;
   }
+
+  p {
+    margin: 0;
+    padding: 0;
+  }
 }
 
 .cancelbtn {
@@ -154,6 +176,11 @@ button {
             }
         }
     });
+}
+
+.error {
+  padding: 1rem;
+  background-color: @nord11;
 }
 
 @hide-label-names: "uname", "psw";

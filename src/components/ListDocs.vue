@@ -5,11 +5,11 @@
   <div v-else-if="spelling_suggestion">
     Suggested search: <strong>{{ spelling_suggestion }}</strong>
   </div>
-  <ul class="docs">
+  <TransitionGroup tag="ul" name="fade" class="docs">
     <li v-for="doc in documents" :key="doc.doc" class="rounded">
       <Doc :document="doc" />
     </li>
-  </ul>
+  </TransitionGroup>
 </template>
 
 <script setup lang="ts">
