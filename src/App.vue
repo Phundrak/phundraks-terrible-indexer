@@ -27,7 +27,6 @@ import Login from "./components/Login.vue";
 const showLogin = ref(false);
 
 function toggleLogin() {
-  console.log(showLogin);
   showLogin.value = !showLogin.value;
 }
 </script>

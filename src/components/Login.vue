@@ -53,41 +53,24 @@
 </template>
 
 <script setup lang="ts">
-import { useStorage } from "@vueuse/core";
-import type { Models } from "appwrite";
 import { ref } from "vue";
 import Modal from "./Modal.vue";
 import Loader from "./Loader.vue";
-import { account } from "@/composables/appwrite";
+import { useAppwrite } from "@/store/appwrite";
 
 const email = ref("");
 const password = ref("");
 const loading = ref(false);
-const session = useStorage("user-session", {} as Models.Session);
+const store = useAppwrite();
+const login = () => {
+  store.login(email.value, password.value);
+  emit("closeModal");
+};
+
 const error = ref("");
 
 const emit = defineEmits(["closeModal"]);
-
 const closeModal = () => emit("closeModal");
-
-const login = () => {
-  error.value = "";
-  loading.value = true;
-  const promise = account.createEmailSession(email.value, password.value);
-  promise.then(
-    (response) => {
-      loading.value = false;
-      session.value = response;
-      emit("closeModal");
-    },
-    (e) => {
-      loading.value = false;
-      console.info("lel");
-      error.value = e;
-      console.log(e);
-    }
-  );
-};
 </script>
 
 <style lang="less" scoped>

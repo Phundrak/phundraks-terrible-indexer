@@ -2,27 +2,28 @@
   <header>
     <nav>
       <router-link to="/">Home</router-link> |
-      <router-link to="/newdoc">New Document</router-link> |
+      <div class="inline" v-if="store.connected">
+        <router-link to="/newdoc">New Document</router-link> |
+      </div>
       <router-link to="/about">About</router-link> | <ThemeSwitcher /> |
-      <a href="#" @click="toggleLogin">Login</a>
+      <div class="inline" v-if="store.connected">
+        <a href="#" @click="store.logout">Logout</a>
+      </div>
+      <div class="inline" v-else>
+        <a href="#" @click="toggleLogin">Login</a>
+      </div>
     </nav>
   </header>
 </template>
 
-<script lang="ts">
-import ThemeSwitcher from "@/components/ThemeSwitcher.vue";
-import { defineComponent } from "vue";
+<script setup lang="ts">
+import ThemeSwitcher from "./ThemeSwitcher.vue";
+import { useAppwrite } from "@/store/appwrite";
 
-export default defineComponent({
-  name: "Header",
-  emits: ["toggleLogin"],
-  methods: {
-    toggleLogin() {
-      this.$emit("toggleLogin");
-    },
-  },
-  components: { ThemeSwitcher },
-});
+const store = useAppwrite();
+
+const emits = defineEmits(["toggleLogin"]);
+const toggleLogin = () => emits("toggleLogin");
 </script>
 
 <style lang="less" scoped>
