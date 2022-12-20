@@ -10,7 +10,7 @@ export interface Document {
 
 export interface QueryResult {
   spelling_suggestion?: string;
-  results: [Document];
+  results: Document[];
   using_suggestion: boolean;
 }
 
@@ -33,19 +33,10 @@ export async function newOfflineDocument(
 export function newOnlineDocument(url: string, endpoint: string, auth: string) {
   url = `${encodeURIComponent(url)}`;
   console.log(`Sending ${url} to be indexed`);
-  // const options = {
-  //   method: "POST",
-  //   headers: {
-  //     "X-User-Auth": auth,
-  //   },
-  // };
-  // console.log(`Submitting URL ${url}`);
-  // return fetch(`${endpoint}/docs/url/${url}`, options);
   return axios({
     url: `/docs/url/${url}`,
     baseUrl: endpoint,
     headers: {
-      "Content-Type": file.type,
       "X-User-Auth": auth,
     },
   } as AxiosRequestConfig);
