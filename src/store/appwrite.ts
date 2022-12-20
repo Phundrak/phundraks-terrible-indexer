@@ -77,6 +77,7 @@ export const useAppwrite = defineStore("appwrite", () => {
 
   return {
     appwrite,
+    session,
     status,
     connected,
     logout,

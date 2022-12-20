@@ -7,24 +7,27 @@
   </div>
   <TransitionGroup tag="ul" name="fade" class="docs">
     <li v-for="doc in documents" :key="doc.doc" class="rounded">
-      <Doc :document="doc" />
+      <Doc @doc-deleted="deleteDoc(doc)" :document="doc" />
     </li>
   </TransitionGroup>
 </template>
 
 <script setup lang="ts">
-import type { QueryResult } from "@/composables/document";
+import type { QueryResult, Document } from "@/composables/document";
 import { computed } from "vue";
 import Doc from "@/components/Doc.vue";
 const props = defineProps<{
   queryResult: QueryResult;
 }>();
+const emits = defineEmits(["deleteDoc"]);
 
 const spelling_suggestion = computed(
   () => props.queryResult.spelling_suggestion
 );
 const using_suggestion = computed(() => props.queryResult.using_suggestion);
 const documents = computed(() => props.queryResult.results);
+
+const deleteDoc = (doc: Document) => emits("deleteDoc", doc);
 </script>
 
 <style lang="less" scoped>

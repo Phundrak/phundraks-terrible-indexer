@@ -17,7 +17,7 @@ const router = createRouter({
     {
       path: "/newdoc",
       name: "newdoc",
-      component: () => import("@/views/AddPageView.vue"),
+      component: () => import("@/views/AddDocView.vue"),
     },
     {
       path: "/:pathMatch(.*)*",

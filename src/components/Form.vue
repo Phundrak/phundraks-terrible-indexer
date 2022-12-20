@@ -22,7 +22,7 @@
       type="submit"
       :value="loading ? '…' : btnText"
       id="submit"
-      class="default-theme default-font rounded"
+      class="generic-button"
     />
   </form>
   <Transition name="fade">
@@ -31,7 +31,7 @@
         <p>{{ loadingText }}</p>
         <LoaderVue class="center" />
       </div>
-      <div v-else-if="ok"><p>Done!</p></div>
+      <div v-else-if="done"><p>Done!</p></div>
     </div>
   </Transition>
 </template>
@@ -47,13 +47,12 @@ export default defineComponent({
     lblText: String,
     loadingText: String,
     queryType: String,
+    loading: Boolean,
+    done: Boolean,
   },
   data() {
     return {
       query: "",
-      loading: false,
-      ok: false,
-      done: false,
     };
   },
   emits: ["submit"],
@@ -70,59 +69,33 @@ export default defineComponent({
 @import "@/assets/global.less";
 @import "node_modules/nord/src/lesscss/nord";
 
-.query-form {
-  gap: 1em;
+#query-label {
+  text-align: left;
+  padding: 0.2rem;
+  .theme(color, @nord3, @nord4);
+}
 
-  .flex-row;
-  align-items: flex-end;
-  width: 70%;
-  max-width: 20rem;
-  padding: 2rem;
+#query {
+  width: 90%;
+  padding: 1rem;
+  border: none;
+  .theme(background-color, @nord4, @nord3);
+  .theme(color, @nord2, @nord6);
 
-  @media (max-width: 30rem) {
-    .flex-col;
-    align-items: center;
+  & + #query-label {
+    opacity: 0;
+    transition: opacity @transition-medium ease;
   }
-
-  .query-input {
-    flex-grow: 1;
-    padding: 0 1rem;
-    flex-direction: column-reverse;
-    align-content: flex-start;
-
-    @media (max-width: 30rem) {
-      padding: 1rem;
-    }
+  &:not(:placeholder-shown) + #query-label {
+    opacity: 1;
+    transition: opacity @transition-medium ease;
   }
-
-  #query-label {
-    text-align: left;
-    padding: 0.2rem;
-    .theme(color, @nord3, @nord4);
-  }
-
-  #query {
-    width: 90%;
-    padding: 1rem;
-    border: none;
-    .theme(background-color, @nord4, @nord3);
-    .theme(color, @nord2, @nord6);
-
-    & + #query-label {
-      opacity: 0;
-      transition: opacity @transition-medium ease;
-    }
-    &:not(:placeholder-shown) + #query-label {
-      opacity: 1;
-      transition: opacity @transition-medium ease;
-    }
-  }
-  #submit {
-    border: none;
-    padding: 1rem;
-    .theme(background-color, @nord4, @nord3);
-    transition: background-color @transition-medium ease,
-      color @transition-medium ease;
-  }
+}
+#submit {
+  border: none;
+  padding: 1rem;
+  .theme(background-color, @nord4, @nord3);
+  transition: background-color @transition-medium ease,
+    color @transition-medium ease;
 }
 </style>

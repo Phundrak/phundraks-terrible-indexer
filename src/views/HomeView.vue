@@ -10,44 +10,32 @@
       @submit="submitInput"
     />
     <div class="results" v-if="queryResult">
-      <ListDocs :query-result="queryResult" />
+      <Suspense>
+        <ListDocs :query-result="queryResult" />
+      </Suspense>
     </div>
   </div>
 </template>
 
-<script lang="ts">
-import { defineComponent } from "vue";
-import { useThrottleFn } from "@vueuse/shared";
-import ListDocs from "../components/ListDocs.vue";
-import Form from "../components/Form.vue";
+<script lang="ts" setup>
+import { ref } from "vue";
+import ListDocs from "@/components/ListDocs.vue";
+import Form from "@/components/Form.vue";
 import type { QueryResult } from "@/composables/document";
-
 import axios from "axios";
 
-export default defineComponent({
-  name: "HomeView",
-  data() {
-    return {
-      queryResult: {} as QueryResult,
-      error: null as any,
-      submitInput: useThrottleFn(
-        async (text) => {
-          if (text) {
-            try {
-              const { data } = await axios.get(
-                `http://leon:8000/search/${text}`
-              );
-              this.queryResult = data;
-            } catch (error) {
-              console.log(error);
-            }
-          }
-        },
-        1000,
-        true
-      ),
-    };
-  },
-  components: { ListDocs, Form },
-});
+const queryResult = ref({} as QueryResult);
+const error = ref(null as any);
+
+const submitInput = async (text: string) => {
+  if (text) {
+    try {
+      const { data } = await axios.get(`http://localhost:8000/search/${text}`);
+      queryResult.value = data;
+    } catch (e: any) {
+      error.value = e;
+      console.log(error);
+    }
+  }
+};
 </script>

@@ -119,3 +119,40 @@ body {
 .inline {
   display: inline;
 }
+
+.clickable {
+  cursor: pointer;
+}
+
+.generic-button {
+  .default-theme();
+  .default-font();
+  .rounded();
+  .clickable();
+  min-width: 8rem;
+}
+.query-form {
+  gap: 1em;
+
+  .flex-row;
+  align-items: flex-end;
+  width: 90%;
+  max-width: 40rem;
+  padding: 2rem;
+
+  @media (max-width: 30rem) {
+    .flex-col;
+    align-items: center;
+  }
+
+  .query-input {
+    flex-grow: 1;
+    padding: 0 1rem;
+    flex-direction: column-reverse;
+    align-content: flex-start;
+
+    @media (max-width: 30rem) {
+      padding: 1rem;
+    }
+  }
+}
