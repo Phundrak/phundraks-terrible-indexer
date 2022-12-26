@@ -23,8 +23,6 @@ export const useAppwrite = defineStore("appwrite", () => {
     session.value = JSON.parse(localStorage.getItem("session") || "");
   }
 
-  const connected = computed(() => session.value.$id);
-
   watch(
     session,
     (sessionVal) => {
@@ -32,6 +30,8 @@ export const useAppwrite = defineStore("appwrite", () => {
     },
     { deep: true }
   );
+
+  const connected = computed(() => session.value.$id);
 
   const logout = async () => {
     status.value.loading = true;

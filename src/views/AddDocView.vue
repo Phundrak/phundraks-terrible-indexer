@@ -71,7 +71,9 @@ import { newOfflineDocument, newOnlineDocument } from "@/composables/document";
 
 const store = useAppwrite();
 
-const loading = ref(false);
+let loading = ref(false);
+let error = ref(null as any);
+let data = ref(null as any);
 const done = ref(false);
 const files = ref(null as any);
 const list_files = ref([] as { file: File; status: String }[]);
@@ -86,14 +88,13 @@ const uploadDocuments = () => {
       "http://localhost:8000",
       `${store.session.userId};${store.session.$id}`
     )
-      .then((res: any) => {
-        console.log(`Upload of ${elem.file.name}: ${res}`);
-        elem.status = "Uploaded!";
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error(response.statusText);
+        }
+        elem.status = "Uploaded";
       })
-      .catch((e: any) => {
-        console.log(`Error with upload: ${e}`);
-        elem.status = `Failed: ${e}`;
-      });
+      .catch((error) => (elem.status = `Failed: ${error}`));
   });
 };
 
@@ -110,23 +111,18 @@ const listFiles = (e: any) => {
 };
 
 const addOnlineDocument = (url: string) => {
-  loading.value = true;
-  newOnlineDocument(
+  ({
+    isFetching: loading,
+    data,
+    error: error,
+  } = newOnlineDocument(
     url,
     "http://localhost:8000",
     `${store.session.userId};${store.session.$id}`
-  )
-    .then((res: any) => {
-      console.log("Got response!", res);
-      return res.status;
-    })
-    .then((res: any) => {
-      console.log(res);
-      loading.value = false;
-      done.value = true;
-      sleep(5000).then(() => {});
-      done.value = false;
-    });
+  ));
+  console.debug("Loading:", loading);
+  console.debug("Data:", data);
+  console.debug("Error:", error);
 };
 </script>
 

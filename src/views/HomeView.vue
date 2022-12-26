@@ -12,6 +12,7 @@
     <div class="results" v-if="queryResult">
       <Suspense>
         <ListDocs :query-result="queryResult" />
+        <template #fallback>Loading...</template>
       </Suspense>
     </div>
   </div>

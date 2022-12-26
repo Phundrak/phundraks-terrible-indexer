@@ -1,6 +1,6 @@
 <template>
   <div class="backdrop" @click.self="closeModal">
-    <slot @closeModal="" />
+    <slot @close-modal="closeModal" />
   </div>
 </template>
 
@@ -11,3 +11,8 @@ function closeModal() {
   emit("closeModal");
 }
 </script>
+
+<style lang="less">
+@import "@/assets/global.less";
+@import "node_modules/nord/src/lesscss/nord";
+</style>

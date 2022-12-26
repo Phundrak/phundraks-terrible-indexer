@@ -44,10 +44,9 @@ const props = defineProps<{
 onMounted(async () => {
   console.log(props.document.online);
   let id = props.document.online
-    ? `${encodeURIComponent(props.document.doc)}`
-    : props.document.doc;
+    ? props.document.doc
+    : `${encodeURIComponent(props.document.doc)}`;
   let fetchUrl = `http://localhost:8000/docs/${id}/keywords`;
-  console.log(`Fetching keywords for ${fetchUrl}`);
   try {
     const { data } = await axios.get(fetchUrl);
     console.log(data);

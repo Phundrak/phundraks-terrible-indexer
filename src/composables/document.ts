@@ -1,7 +1,8 @@
-import axios, { type AxiosRequestConfig } from "axios";
+import { useFetch, type UseFetchOptions } from "@vueuse/core";
 
 export interface Document {
   doc: string;
+  url: string;
   title: string;
   description: string;
   hits: number;

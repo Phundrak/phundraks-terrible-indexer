@@ -2,7 +2,7 @@
   <div class="document">
     <div class="flex-row">
       <h4 class="title flex-grow flex-v-centered">
-        <a :href="props.document.doc" target="_blank">{{
+        <a :href="props.document.url" target="_blank">{{
           props.document.title
         }}</a>
       </h4>

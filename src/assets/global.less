@@ -28,6 +28,10 @@
   align-content: stretch;
 }
 
+.flex-gap-1rem {
+  gap: 1rem;
+}
+
 .flex-grow {
   flex-grow: 1;
 }
@@ -155,4 +159,81 @@ body {
       padding: 1rem;
     }
   }
+}
+
+.form-button {
+  .rounded();
+  .breathe();
+  .theme(background-color, @nord4, @nord3);
+  .theme(color, @nord3, @nord5);
+  border: none;
+  cursor: pointer;
+  width: 100%;
+  font-size: 1rem;
+
+  &:hover {
+    opacity: 0.8;
+  }
+
+  p {
+    margin: 0;
+    padding: 0;
+  }
+}
+
+.cancelbtn {
+  .breathe();
+  background-color: @nord11 !important;
+  color: @nord6 !important;
+}
+
+.form-side-margin {
+  margin-left: 1rem;
+  margin-right: 1rem;
+}
+
+label,
+h2,
+.error {
+  .form-side-margin();
+  .default-font();
+}
+
+h2 {
+  text-align: center;
+  font-size: 2em;
+}
+
+.breathe {
+  padding: 1rem 1.3rem;
+}
+
+.input-text {
+  .rounded();
+  .breathe();
+  width: 100%;
+  display: inline-block;
+  border: 1px solid @nord2;
+  box-sizing: border-box;
+}
+
+.hide-label-no-placeholder(@name) {
+  each(@name, {
+        input[name="@{value}"] {
+            & + label[for="@{value}"] {
+                opacity: 0;
+                transition: opacity @transition-medium ease;
+            }
+
+            &:not(:placeholder-shown) + label[for="@{value}"] {
+                opacity: 1;
+                transition: opacity @transition-medium ease;
+            }
+        }
+    });
+}
+
+.top-bottom-margin-1rem {
+  margin-top: 1rem;
+  margin-bottom: 1rem;
 }

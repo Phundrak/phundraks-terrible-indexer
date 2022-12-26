@@ -7,7 +7,9 @@
   <teleport to="#modals">
     <transition name="fade">
       <div v-if="showLogin">
-        <Login @close-modal="toggleLogin" />
+        <Modal @close-modal="toggleLogin">
+          <Login />
+        </Modal>
       </div>
     </transition>
   </teleport>
@@ -23,12 +25,11 @@
 import { ref } from "vue";
 import Header from "./components/Header.vue";
 import Login from "./components/Login.vue";
+import Modal from "@/components/Modal.vue";
 
 const showLogin = ref(false);
 
-function toggleLogin() {
-  showLogin.value = !showLogin.value;
-}
+const toggleLogin = () => (showLogin.value = !showLogin.value);
 </script>
 
 <style lang="less">

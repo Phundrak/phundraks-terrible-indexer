@@ -1,60 +1,61 @@
 <template>
-  <Modal @close-modal="closeModal">
-    <form
-      method="post"
-      accept="utf-8"
-      @submit.prevent="login"
-      class="card flex-col"
+  <form
+    method="post"
+    accept="utf-8"
+    @submit.prevent="login"
+    class="card flex-col"
+  >
+    <h2>User Authentification</h2>
+    <Transition name="fade-grow">
+      <p class="error rounded" v-if="error">
+        {{ error }}
+      </p>
+    </Transition>
+    <div class="container flex-col">
+      <div class="flex-col-reversed top-bottom-margin-1rem box-sizing-border">
+        <input
+          name="uname"
+          type="email"
+          v-model="email"
+          placeholder="Email"
+          class="input-text"
+          required
+        />
+        <label for="uname">Email</label>
+      </div>
+      <div class="flex-col-reversed top-bottom-margin-1rem box-sizing-border">
+        <input
+          name="psw"
+          type="password"
+          placeholder="Password"
+          v-model="password"
+          class="input-text"
+          required
+        />
+        <label for="psw">Password</label>
+      </div>
+      <button type="submit" class="top-bottom-margin-1rem">
+        <Loader v-if="loading" />
+        <p v-else>Login</p>
+      </button>
+    </div>
+    <div
+      class="container flex-row flex-stretch top-bottom-margin-1rem gap-1rem"
     >
-      <h2>User Authentification</h2>
-      <Transition name="fade-grow">
-        <p class="error rounded" v-if="error">
-          {{ error }}
-        </p>
-      </Transition>
-      <div class="container flex-col">
-        <div class="flex-col-reversed top-margin box-sizizg-border">
-          <input
-            name="uname"
-            type="email"
-            v-model="email"
-            placeholder="Email"
-            required
-          />
-          <label for="uname">Email</label>
-        </div>
-        <div class="flex-col-reversed top-margin box-sizizg-border">
-          <input
-            name="psw"
-            type="password"
-            placeholder="Password"
-            v-model="password"
-            required
-          />
-          <label for="psw">Password</label>
-        </div>
-        <button type="submit" class="top-margin">
-          <Loader v-if="loading" />
-          <p v-else>Login</p>
-        </button>
-      </div>
-      <div class="container flex-row flex-stretch top-margin gap-1rem">
-        <button
-          class="cancelbtn flex-v-centered"
-          type="button"
-          @click="closeModal"
-        >
-          Cancel
-        </button>
-        <button class="flex-v-centered" type="button">Forgot password?</button>
-      </div>
-    </form>
-  </Modal>
+      <button
+        class="cancelbtn flex-v-centered"
+        type="button"
+        @click="closeModal"
+      >
+        Cancel
+      </button>
+      <button class="flex-v-centered" type="button">Forgot password?</button>
+    </div>
+  </form>
 </template>
 
 <script setup lang="ts">
 import { ref } from "vue";
-import Modal from "./Modal.vue";
 import Loader from "./Loader.vue";
 import { useAppwrite } from "@/store/appwrite";
 
@@ -64,7 +65,7 @@ const loading = ref(false);
 const store = useAppwrite();
 const login = () => {
   store.login(email.value, password.value);
-  emit("closeModal");
+  closeModal();
 };
 
 const error = ref("");
@@ -77,41 +78,16 @@ const closeModal = () => emit("closeModal");
 @import "@/assets/global.less";
 @import "node_modules/nord/src/lesscss/nord";
 
-.side-margin {
-  /* margin: 0 1rem; */
-  margin-left: 1rem;
-  margin-right: 1rem;
-}
-
-.top-margin {
-  margin-top: 1rem;
-  margin-bottom: 1rem;
-}
-
-.breathe {
-  padding: 1rem 1.3rem;
-}
-
 label,
 h2,
 .error {
-  .side-margin();
+  .form-side-margin();
   .default-font();
 }
 
 h2 {
   text-align: center;
   font-size: 2em;
-}
-
-input[type="email"],
-input[type="password"] {
-  .rounded();
-  .breathe();
-  width: 100%;
-  display: inline-block;
-  border: 1px solid @nord2;
-  box-sizing: border-box;
 }
 
 button {
@@ -143,22 +119,6 @@ button {
 .container {
   padding: 1.3rem;
   .rounded();
-}
-
-.hide-label-no-placeholder(@name) {
-  each(@name, {
-        input[name="@{value}"] {
-            & + label[for="@{value}"] {
-                opacity: 0;
-                transition: opacity @transition-medium ease;
-            }
-
-            &:not(:placeholder-shown) + label[for="@{value}"] {
-                opacity: 1;
-                transition: opacity @transition-medium ease;
-            }
-        }
-    });
 }
 
 .error {
