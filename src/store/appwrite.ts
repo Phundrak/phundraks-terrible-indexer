@@ -1,6 +1,8 @@
 import { ref, computed, watch } from "vue";
 import { defineStore } from "pinia";
 import { Client, Account, type Models } from "appwrite";
+import { useRouter } from "vue-router";
+
 let client = new Client()
   .setEndpoint("https://appwrite.phundrak.com/v1")
   .setProject("637ebacf9bdcce6efe69");
@@ -20,6 +22,8 @@ export const useAppwrite = defineStore("appwrite", () => {
   });
 
   const endpoint = ref({} as string);
+
+  const router = useRouter();
 
   if (localStorage.getItem("session")) {
     session.value = JSON.parse(localStorage.getItem("session") || "");
@@ -65,15 +69,16 @@ export const useAppwrite = defineStore("appwrite", () => {
         );
         promiseDeleteSession.then(
           (response) => {
-            console.log(`Logout: Server answered: ${response}`);
+            console.debug(`Logout: Server answered: ${response}`);
             session.value = {} as Models.Session;
             console.info("Logout: Logged out!");
-            console.log(session.value);
+            console.debug(session.value);
+            router.push({ path: "/" });
           },
-          (e) => console.log("Logout:", e)
+          (e) => console.debug("Error logging out:", e)
         );
       },
-      (e) => console.log("Logout:", e)
+      (e) => console.debug("Error logging out:", e)
     );
   };
 
