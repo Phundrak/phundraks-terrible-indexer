@@ -47,8 +47,8 @@ const props = defineProps<{
 onMounted(async () => {
   console.log(props.document.online);
   let id = props.document.online
-    ? props.document.doc
-    : `${encodeURIComponent(props.document.doc)}`;
+    ? `${encodeURIComponent(props.document.doc)}`
+    : props.document.doc;
   try {
     const { data } = await axios.get(`${store.endpoint}/docs/${id}/keywords`);
     console.log(data);
