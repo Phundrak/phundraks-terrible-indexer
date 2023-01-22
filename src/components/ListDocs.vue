@@ -19,7 +19,7 @@ import Doc from "@/components/Doc.vue";
 const props = defineProps<{
   queryResult: QueryResult;
 }>();
-const emits = defineEmits(["deleteDoc"]);
+const emits = defineEmits(["delete-doc"]);
 
 const spelling_suggestion = computed(
   () => props.queryResult.spelling_suggestion
@@ -27,7 +27,7 @@ const spelling_suggestion = computed(
 const using_suggestion = computed(() => props.queryResult.using_suggestion);
 const documents = computed(() => props.queryResult.results);
 
-const deleteDoc = (doc: Document) => emits("deleteDoc", doc);
+const deleteDoc = (doc: Document) => emits("delete-doc", doc);
 </script>
 
 <style lang="less" scoped>

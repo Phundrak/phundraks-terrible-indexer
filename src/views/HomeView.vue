@@ -11,7 +11,10 @@
     />
     <div class="results" v-if="queryResult">
       <Suspense>
-        <ListDocs :query-result="queryResult" />
+        <ListDocs
+          :query-result="queryResult"
+          @delete-doc="removeDocFromResults"
+        />
         <template #fallback>Loading...</template>
       </Suspense>
     </div>
@@ -38,5 +41,12 @@ const submitInput = async (text: string) => {
       console.log(error);
     }
   }
+};
+
+const removeDocFromResults = (doc: Document) => {
+  console.log(`Removing document ${doc.doc}`);
+  queryResult.value.results = queryResult.value.results.filter(
+    (elem: Document) => elem.doc != doc.doc
+  );
 };
 </script>
