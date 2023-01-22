@@ -6,7 +6,9 @@
           props.document.title
         }}</a>
       </h4>
-      <div class="score flex-v-centered">Score: {{ props.document.hits }}</div>
+      <div class="score flex-v-centered" v-if="props.document.hits">
+        Score: {{ props.document.hits }}
+      </div>
     </div>
     <div class="flex-row buttons">
       <button class="generic-button" @click="toggleModal">

@@ -13,19 +13,18 @@
 </template>
 
 <script setup lang="ts">
-import type { QueryResult, Document } from "@/composables/document";
+import type { Document } from "@/composables/document";
 import { computed } from "vue";
 import Doc from "@/components/Doc.vue";
 const props = defineProps<{
-  queryResult: QueryResult;
+  documents: Document[];
+  spelling?: string;
 }>();
 const emits = defineEmits(["delete-doc"]);
 
-const spelling_suggestion = computed(
-  () => props.queryResult.spelling_suggestion
-);
-const using_suggestion = computed(() => props.queryResult.using_suggestion);
-const documents = computed(() => props.queryResult.results);
+const spelling_suggestion = computed(() => props.spelling);
+const using_suggestion = computed(() => props.spelling != undefined);
+const documents = computed(() => props.documents);
 
 const deleteDoc = (doc: Document) => emits("delete-doc", doc);
 </script>

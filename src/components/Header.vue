@@ -4,6 +4,7 @@
       <router-link to="/">Home</router-link> |
       <div class="inline" v-if="store.connected">
         <router-link to="/newdoc">New Document</router-link> |
+        <router-link to="/alldocs">All Documents</router-link> |
       </div>
       <router-link to="/about">About</router-link> | <ThemeSwitcher /> |
       <div class="inline" v-if="store.connected">

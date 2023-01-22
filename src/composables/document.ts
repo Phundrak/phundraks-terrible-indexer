@@ -5,7 +5,7 @@ export interface Document {
   url: string;
   title: string;
   description: string;
-  hits: number;
+  hits?: number;
   online: boolean;
 }
 

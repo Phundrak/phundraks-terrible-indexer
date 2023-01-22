@@ -12,7 +12,8 @@
     <div class="results" v-if="queryResult">
       <Suspense>
         <ListDocs
-          :query-result="queryResult"
+          :documents="queryResult.results"
+          :spelling="queryResult.spelling_suggestion"
           @delete-doc="removeDocFromResults"
         />
         <template #fallback>Loading...</template>

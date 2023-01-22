@@ -1,6 +1,8 @@
 import { createRouter, createWebHistory } from "vue-router";
 import HomeView from "@/views/HomeView.vue";
 
+import { useAppwrite } from "@/store/appwrite";
+
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
@@ -18,6 +20,11 @@ const router = createRouter({
       path: "/newdoc",
       name: "newdoc",
       component: () => import("@/views/AddDocView.vue"),
+    },
+    {
+      path: "/alldocs",
+      name: "alldocs",
+      component: () => import("@/views/AllDocsView.vue"),
     },
     {
       path: "/:pathMatch(.*)*",
