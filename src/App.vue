@@ -1,17 +1,24 @@
 <template>
   <a class="skip-main rounded" href="#main">Skip to main content</a>
-  <Header @toggleLogin="toggleLogin" />
+  <Header @toggle-login="toggleLogin" @toggle-settings="toggleSettings" />
 
   <h1>PTI – Phundrak’s Terrible Indexer</h1>
 
   <teleport to="#modals">
     <transition name="fade">
       <div v-if="showLogin">
-        <Modal @close-modal="toggleLogin">
-          <Login />
+        <Modal>
+          <Login @close-modal="toggleLogin" />
         </Modal>
       </div>
     </transition>
+    <Transition name="fade">
+      <div v-if="showSettings">
+        <Modal>
+          <Settings @close-modal="toggleSettings" />
+        </Modal>
+      </div>
+    </Transition>
   </teleport>
 
   <router-view v-slot="{ Component }">
@@ -26,10 +33,16 @@ import { ref } from "vue";
 import Header from "./components/Header.vue";
 import Login from "./components/Login.vue";
 import Modal from "@/components/Modal.vue";
+import Settings from "@/components/Settings.vue";
 
 const showLogin = ref(false);
+const showSettings = ref(false);
 
 const toggleLogin = () => (showLogin.value = !showLogin.value);
+const toggleSettings = () => {
+  console.log("Toggle Settings");
+  showSettings.value = !showSettings.value;
+};
 </script>
 
 <style lang="less">

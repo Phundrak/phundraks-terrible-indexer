@@ -33,7 +33,10 @@ import Modal from "@/components/Modal.vue";
 import Loader from "@/components/Loader.vue";
 import type { RankedKeyword } from "@/composables/keywords";
 import type { Document } from "@/composables/document";
+import { useAppwrite } from "@/store/appwrite";
 import axios from "axios";
+
+const store = useAppwrite();
 
 const loading = ref(true);
 const keywords = ref([] as RankedKeyword[]);
@@ -46,9 +49,8 @@ onMounted(async () => {
   let id = props.document.online
     ? props.document.doc
     : `${encodeURIComponent(props.document.doc)}`;
-  let fetchUrl = `http://localhost:8000/docs/${id}/keywords`;
   try {
-    const { data } = await axios.get(fetchUrl);
+    const { data } = await axios.get(`${store.endpoint}/docs/${id}/keywords`);
     console.log(data);
     loading.value = false;
     keywords.value = data
@@ -59,9 +61,9 @@ onMounted(async () => {
   }
 });
 
-const emits = defineEmits(["closeModal"]);
+const emits = defineEmits(["close-modal"]);
 
-const closeModal = () => emits("closeModal");
+const closeModal = () => emits("close-modal");
 
 const fontSize = (base: number) => {
   const size = Math.log2(base / 5) * 10;

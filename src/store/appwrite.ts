@@ -19,8 +19,13 @@ export const useAppwrite = defineStore("appwrite", () => {
     error: {} as any,
   });
 
+  const endpoint = ref({} as string);
+
   if (localStorage.getItem("session")) {
     session.value = JSON.parse(localStorage.getItem("session") || "");
+  }
+  if (localStorage.getItem("endpoint")) {
+    endpoint.value = JSON.parse(localStorage.getItem("endpoint") || "");
   }
 
   watch(
@@ -30,6 +35,22 @@ export const useAppwrite = defineStore("appwrite", () => {
     },
     { deep: true }
   );
+
+  watch(
+    endpoint,
+    (endpointVal) => {
+      localStorage.setItem("endpoint", JSON.stringify(endpointVal));
+    },
+    { deep: true }
+  );
+
+  const setEndpoint = (newEndpoint: string) => {
+    console.log(`Setting endpoint to ${newEndpoint}`);
+    endpoint.value = newEndpoint.endsWith("/")
+      ? newEndpoint.substring(0, newEndpoint.length - 1)
+      : newEndpoint;
+    console.log(`Set to ${endpoint.value}`);
+  };
 
   const connected = computed(() => session.value.$id);
 
@@ -79,6 +100,8 @@ export const useAppwrite = defineStore("appwrite", () => {
     appwrite,
     session,
     status,
+    endpoint,
+    setEndpoint,
     connected,
     logout,
     login,

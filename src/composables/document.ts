@@ -20,27 +20,30 @@ export async function newOfflineDocument(
   endpoint: string,
   auth: string
 ) {
-  return axios({
-    url: `/docs/file/${file.name}`,
-    baseUrl: endpoint,
+  return fetch(`${endpoint}/docs/file/${file.name}`, {
+    body: file,
+    method: "post",
     headers: {
       "Content-Type": file.type,
       "X-User-Auth": auth,
     },
-    data: file,
-  } as AxiosRequestConfig<File>);
+  });
 }
 
 export function newOnlineDocument(url: string, endpoint: string, auth: string) {
   url = `${encodeURIComponent(url)}`;
   console.log(`Sending ${url} to be indexed`);
-  return axios({
-    url: `/docs/url/${url}`,
-    baseUrl: endpoint,
-    headers: {
-      "X-User-Auth": auth,
+  return useFetch(`${endpoint}/docs/url/${url}`, {
+    async beforeFetch({ options }) {
+      options.headers = {
+        ...options.headers,
+        "X-User-Auth": auth,
+      };
+      return {
+        options,
+      };
     },
-  } as AxiosRequestConfig);
+  } as UseFetchOptions);
 }
 
 export function deleteDocument(

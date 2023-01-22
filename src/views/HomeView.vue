@@ -25,16 +25,18 @@
 import { ref } from "vue";
 import ListDocs from "@/components/ListDocs.vue";
 import Form from "@/components/Form.vue";
-import type { QueryResult } from "@/composables/document";
+import { useAppwrite } from "@/store/appwrite";
+import type { Document, QueryResult } from "@/composables/document";
 import axios from "axios";
 
 const queryResult = ref({} as QueryResult);
 const error = ref(null as any);
+const store = useAppwrite();
 
 const submitInput = async (text: string) => {
   if (text) {
     try {
-      const { data } = await axios.get(`http://localhost:8000/search/${text}`);
+      const { data } = await axios.get(`${store.endpoint}/search/${text}`);
       queryResult.value = data;
     } catch (e: any) {
       error.value = e;

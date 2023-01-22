@@ -85,7 +85,7 @@ const uploadDocuments = () => {
     elem.status = "Uploading";
     newOfflineDocument(
       elem.file,
-      "http://localhost:8000",
+      store.endpoint,
       `${store.session.userId};${store.session.$id}`
     )
       .then((response) => {
@@ -117,7 +117,7 @@ const addOnlineDocument = (url: string) => {
     error: error,
   } = newOnlineDocument(
     url,
-    "http://localhost:8000",
+    store.endpoint,
     `${store.session.userId};${store.session.$id}`
   ));
   console.debug("Loading:", loading);

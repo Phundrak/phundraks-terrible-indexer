@@ -5,10 +5,10 @@
 </template>
 
 <script setup lang="ts">
-const emit = defineEmits(["closeModal"]);
+const emit = defineEmits(["close-modal"]);
 
 function closeModal() {
-  emit("closeModal");
+  emit("close-modal");
 }
 </script>
 

@@ -70,8 +70,8 @@ const login = () => {
 
 const error = ref("");
 
-const emit = defineEmits(["closeModal"]);
-const closeModal = () => emit("closeModal");
+const emit = defineEmits(["close-modal"]);
+const closeModal = () => emit("close-modal");
 </script>
 
 <style lang="less" scoped>

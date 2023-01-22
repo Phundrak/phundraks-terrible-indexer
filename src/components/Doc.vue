@@ -54,7 +54,7 @@ const deleteDoc = () => {
   deleting.value = true;
   deleteDocument(
     props.document,
-    "http://localhost:8000",
+    store.endpoint,
     `${store.session.userId};${store.session.$id}`
   )
     .then((res: any) => {

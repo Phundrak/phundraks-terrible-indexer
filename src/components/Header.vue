@@ -12,6 +12,8 @@
       <div class="inline" v-else>
         <a href="#" @click="toggleLogin">Login</a>
       </div>
+      |
+      <a href="#" @click="toggleSettings">Settings</a>
     </nav>
   </header>
 </template>
@@ -22,8 +24,9 @@ import { useAppwrite } from "@/store/appwrite";
 
 const store = useAppwrite();
 
-const emits = defineEmits(["toggleLogin"]);
-const toggleLogin = () => emits("toggleLogin");
+const emits = defineEmits(["toggle-login", "toggle-settings"]);
+const toggleLogin = () => emits("toggle-login");
+const toggleSettings = () => emits("toggle-settings");
 </script>
 
 <style lang="less" scoped>
