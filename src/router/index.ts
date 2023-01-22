@@ -34,4 +34,12 @@ const router = createRouter({
   ],
 });
 
+router.beforeEach(async (to, _from) => {
+  const store = useAppwrite();
+
+  if ((to.name === "newdoc" || to.name === "alldocs") && !store.connected) {
+    return { name: "home" };
+  }
+});
+
 export default router;
