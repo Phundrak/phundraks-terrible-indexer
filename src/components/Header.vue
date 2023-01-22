@@ -6,7 +6,6 @@
         <router-link to="/newdoc">New Document</router-link> |
         <router-link to="/alldocs">All Documents</router-link> |
       </div>
-      <router-link to="/about">About</router-link> | <ThemeSwitcher /> |
       <div class="inline" v-if="store.connected">
         <a href="#" @click="store.logout">Logout</a>
       </div>
@@ -14,7 +13,9 @@
         <a href="#" @click="toggleLogin">Login</a>
       </div>
       |
-      <a href="#" @click="toggleSettings">Settings</a>
+      <router-link to="/about">About</router-link> |
+      <a href="#" @click="toggleSettings">Settings</a> |
+      <ThemeSwitcher />
     </nav>
   </header>
 </template>

@@ -6,7 +6,7 @@
     </Transition>
     <div class="container flex-col">
       <div class="flex-col top-bottom-margin-1rem box-sizing-border">
-        <h4>Endpoint</h4>
+        <h4>API Endpoint</h4>
         <input
           class="input-text"
           name="endpoint"

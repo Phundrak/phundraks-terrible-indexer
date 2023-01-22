@@ -2,7 +2,7 @@
   <a class="skip-main rounded" href="#main">Skip to main content</a>
   <Header @toggle-login="toggleLogin" @toggle-settings="toggleSettings" />
 
-  <h1>PTI – Phundrak’s Terrible Indexer</h1>
+  <h1>Phundrak’s Terrible Indexer</h1>
 
   <teleport to="#modals">
     <transition name="fade">
