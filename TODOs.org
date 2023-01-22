@@ -1,11 +1,17 @@
 #+startup: content
 
-* TODO Make an admin-only area [0/4]
-** TODO Web page indexer
+* TODO Make an admin-only area [3/4]
+** DONE Web page indexer
+CLOSED: [2023-01-22 Sun 19:16]
 ** TODO Local file indexer
 *** TODO Display progress when multiple files get indexed
-** TODO Display list of indexed documents
-** TODO Enable admin to delete document
-* TODO Change “hits” by “score”
-* TODO Display description of document
-* TODO Display word cloud for a document
+** DONE Display list of indexed documents
+CLOSED: [2023-01-22 Sun 19:16]
+** DONE Enable admin to delete document
+CLOSED: [2023-01-22 Sun 19:16]
+* DONE Change “hits” by “score”
+CLOSED: [2023-01-22 Sun 19:16]
+* DONE Display description of document
+CLOSED: [2023-01-22 Sun 19:15]
+* DONE Display word cloud for a document
+CLOSED: [2023-01-22 Sun 19:15]
