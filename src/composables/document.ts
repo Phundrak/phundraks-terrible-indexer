@@ -22,7 +22,7 @@ export async function newOfflineDocument(
 ) {
   return fetch(`${endpoint}/docs/file/${file.name}`, {
     body: file,
-    method: "post",
+    method: "POST",
     headers: {
       "Content-Type": file.type,
       "X-User-Auth": auth,
@@ -43,7 +43,7 @@ export function newOnlineDocument(url: string, endpoint: string, auth: string) {
         options,
       };
     },
-  } as UseFetchOptions);
+  } as UseFetchOptions).post();
 }
 
 export function deleteDocument(
