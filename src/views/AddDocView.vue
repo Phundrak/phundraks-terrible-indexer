@@ -78,8 +78,6 @@ const done = ref(false);
 const files = ref(null as any);
 const list_files = ref([] as { file: File; status: String }[]);
 
-const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms));
-
 const uploadDocuments = () => {
   list_files.value.forEach((elem) => {
     elem.status = "Uploading";
