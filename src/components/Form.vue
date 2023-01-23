@@ -95,7 +95,6 @@ export default defineComponent({
   border: none;
   padding: 1rem;
   .theme(background-color, @nord4, @nord3);
-  transition: background-color @transition-medium ease,
-    color @transition-medium ease;
+  transition: all @transition-medium ease;
 }
 </style>

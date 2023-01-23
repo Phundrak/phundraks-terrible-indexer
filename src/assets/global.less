@@ -164,15 +164,18 @@ body {
 .form-button {
   .rounded();
   .breathe();
-  .theme(background-color, @nord4, @nord3);
+  .theme(background-color, @nord5, @nord3);
   .theme(color, @nord3, @nord5);
   border: none;
   cursor: pointer;
   width: 100%;
   font-size: 1rem;
+  transition: all @transition-medium ease-in-out;
+  .theme(box-shadow, 0 0 0 @nord3, 0 0 0 @nord1);
 
   &:hover {
     opacity: 0.8;
+    .theme(box-shadow, 0 0 1rem @nord3, 0 0 0.6rem @nord0);
   }
 
   p {

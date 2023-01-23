@@ -141,13 +141,13 @@ const addOnlineDocument = (url: string) => {
   justify-content: space-between;
   width: 100%;
   padding: 1rem;
-  background-color: @nord3;
+  .theme(background-color, @nord4, @nord3);
 }
 
 #input-files {
   width: 100%;
   line-height: 3rem;
-  background: @nord3;
+  .theme(background-color, @nord4, @nord3);
   margin: 0 1rem;
   .rounded();
 }
